@@ -1,0 +1,99 @@
+/* This is not the first version that I delivered. I had used display: block; instead of display: flex; */
+
+/* Wrapper: because the grid looks funny on a very wide screen. */
+
+html {
+    --space-around-form-elements: .9rem;
+}
+
+/* margin-inline: auto; is responsive: the margin gets smaller as the screen gets smaller. No need to create a media query to shrink the margin! */
+body {
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+#currencyConverterDialog {
+    margin: 1rem;
+    padding: 1rem;
+    border: .5px gray solid;
+}
+
+.close-button {
+    justify-self: right;
+}
+
+.hidden {
+    /* display: none is better than visibility: hidden; because the latter doesn't make the content collapse (it leaves a space where the element was shown) */
+    display: none;
+} 
+
+.two-col-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+}
+
+@media screen and (max-width: 800px) { 
+    .two-col-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+}
+
+/* Example of display: flex; flex-direction: column; instead of display: block; (to give the fields the same width). Otherwise, they are slightly offset by default.
+These flex properties must be set along with resize: none; (see below) in order to make everything the same width.
+ */
+.width-of-content {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+/* If I set a max-width, the fields go back to being an uneven width. 
+Failed attempt to find a solution: I created a two-column grid with the result header and paragraph on the right-hand side. However, the fields went back to being an uneven width. 
+Solution: creating sth like a wrapper before the grid (I used width: fit-content; so that the result would be responsive). See above. 
+Then, I made this grid responsive (the 2nd column goes under the 1st column). */
+.currency-converter-form input,
+.currency-converter-form select,
+.currency-converter-form button {
+    min-width: 35ch;
+    resize: none;
+    margin-inline: var(--space-around-form-elements);
+}
+
+.currency-converter-form {
+    background-color: rgb(62, 187, 236);
+    border: .5px gray solid;
+}
+
+.currency-converter-form h1 {
+    background-color: lightgray;
+    border: .5px gray solid;
+    padding-block: .5rem;
+    padding-inline: .8rem;
+}
+
+.currency-converter-form h2 {
+    margin-top: 0.5rem;
+    padding-inline: var(--space-around-form-elements);
+}
+
+.currency-converter-form label {
+    margin-block: .5rem;
+    padding-inline: var(--space-around-form-elements);
+}
+
+.currency-converter-form button {
+    margin-block: 1.5rem;
+}
+
+.result {
+    background-color: white;
+    border: .5px gray solid;
+    /* In my delivery, I had used line-height. However, height: fit-content; is more responsive. */
+    height: fit-content;
+    padding-block: .5rem;
+    padding-inline: .25rem;
+    margin-inline: var(--space-around-form-elements);
+}

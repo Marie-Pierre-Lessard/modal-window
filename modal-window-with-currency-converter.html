@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Valutaomregner/Currency Converter</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="assets/js/site.js" defer></script>
+</head>
+
+<body>
+    <!-- If I remove class="hidden" from dialog and use 
+    onclick="window.currencyConverterWindow.show() and onclick="window.currencyConverterWindow.close()"
+    (window.dialogID.show() or .close()),
+    I can open and close the dialog, but the assignment requires me to change the class with an event listener. -->
+    <button id="openButton">Åbn valutaomregner</button>
+    <!-- When the section was a dialog element, the JavaScript didn't work. It's because HTML and JavaScript sometimes fight with each other. The dialog defaults supercede the JavaScript code. -->
+    <article id="currencyConverterDialog" class="hidden">
+        <div class="close-button"><button id="closeButton">Luk valutaomregner</button></div>
+        <!-- The fieldset element belongs inside of a form. Without the attribute action (even with a placeholder as in action="#"), the form element seems to try to send the result of the equation somewhere. It shows for a split second and disappears. Teacher says it's probably due to a default JS behaviour. -->
+        <form action="#" target="_self">
+            <fieldset class="currency-converter-form">
+                <legend>
+                    <h1>Valutaomregner</h1>
+                </legend>
+                <article class="two-col-grid">
+    
+                    <div class="width-of-content">
+                        <!-- "Tip: The for attribute of <label> must be equal to the id attribute of the related element to bind them together." https://www.w3schools.com/tags/tag_label.asp -->
+                        <label for="startingAmountDkkInput">Hvilket beløb i danske kroner vil du omregne til en anden valuta?</label>
+                        <!-- "The name attribute is used to reference elements in a JavaScript, or to reference form data after a form is submitted. Note: Only form elements with a name attribute will have their values passed when submitting a form." https://www.w3schools.com/tags/att_input_name.asp -->
+                        <input type="number" id="startingAmountDkkInput" class="startingAmountDkkInputClass" name="starting-amount" placeholder="Beløb i DKK til omregning">
+                        <label for="endCurrencyIsoSelect">Til hvilken valuta skal beløbet omregnes?</label>
+                        <select id="endCurrencyIsoSelect" name="end-currency">
+                            <option value="CAD">CAD (canadisk dollar)</option>
+                            <option value="EUR" selected>EUR (euro)</option>
+                            <option value="USD">USD (amerikansk dollar)</option>
+                        </select>
+                        <!-- 3 types of button: button, submit, reset. "Tip: Always specify the type attribute for the <button> element. Different browsers may use different default types for the <button> element." https://www.w3schools.com/tags/att_button_type.asp -->
+                        <!-- "<button> elements are much easier to style than <input> elements. You can add inner HTML content (think <i>, <br>, or even <img>), and use ::after and ::before pseudo-elements for complex rendering.
+                        ***If your buttons are not for submitting form data to a server, be sure to set their type attribute to button.*** Otherwise, they will try to submit form data and to load the (nonexistent) response, possibly destroying the current state of the document.
+                        While <button type="button"> has no default behavior, event handlers can be scripted to trigger behaviors. An activated button can perform programmable actions using JavaScript, such as removing an item from a list." https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button -->    
+                        <button type="button" id="convertButton">Beregn</button>
+                    </div>
+                    <div>
+                        <h2>Resultat</h2>
+                        <p id="endAmountP" class="result">Ifølge Toldstyrelsens Toldtarif (1. april 2025), er beløbet så meget værd i slutvalutaen... </p>
+                    </div>
+                </article>
+            </fieldset>
+        </form>
+        <aside>
+            <h2>Kilde</h2>
+            <a href="https://tarif.skat.dk/arctictariff-public-web/#!/taric/duty/exchangerates" target="_blank" rel="noopener noreferrer">Toldtariffen > Beregning af told > Valutakurser</a>
+        </aside>
+    </article>
+</body>
+<footer>
+    <p>© Boilerplate af Bo Nicolaisen, underviser; kodning af Marie-Pierre Lessard.</p>
+</footer>
+</html>
